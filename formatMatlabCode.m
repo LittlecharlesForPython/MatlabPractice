@@ -1,7 +1,6 @@
 function formatMatlabCode(inputFile, outputFile)
-% 修复索引越界错误的MATLAB代码格式化工具
-% 支持安全地处理=、==、<=等，避免错误拆分
-% 完全在单个函数中实现所有功能
+% 功能：美化代码，在'='等地方添加一些空格
+% 输入：需要格式化的文件路径；输出：处理后的文件路径。
 
 % 检查输入参数
 if nargin < 1
@@ -113,33 +112,7 @@ for i = 1:length(lines)
                 operatorMask(idx:idx+opLen-1) = true;
             end
         end
-
-        %         % 处理运算符
-        %         for opIdx = 1:length(operators)
-        %             op = operators{opIdx};
-        %             opLength = length(op);
-        %             % 查找所有运算符位置
-        %             idx = 1;
-        %             while idx <= length(formattedCode)
-        %                 if ~stringMask(idx) && strncmp(formattedCode(idx:end), op, opLength)
-        %                     % 检查前面是否需要加空格
-        %                     if idx > 1 && ~isspace(formattedCode(idx-1))
-        %                         formattedCode = [formattedCode(1:idx-1) ' ' formattedCode(idx:end)];
-        %                         stringMask = [stringMask(1:idx-1) false stringMask(idx:end)];
-        %                         idx = idx + 1; % 因为插入了一个空格
-        %                     end
-        %                     % 检查后面是否需要加空格
-        %                     opEnd = idx + opLength - 1;
-        %                     if opEnd < length(formattedCode) && ~isspace(formattedCode(opEnd+1))
-        %                         formattedCode = [formattedCode(1:opEnd) ' ' formattedCode(opEnd+1:end)];
-        %                         stringMask = [stringMask(1:opEnd) false stringMask(opEnd+1:end)];
-        %                     end
-        %                     idx = idx + opLength;
-        %                 else
-        %                     idx = idx + 1;
-        %                 end
-        %             end
-        %         end
+        
         % 处理逗号（前无空格，后有空格）
         commaPos = find(formattedCode == ',');
         for k = length(commaPos):-1:1
